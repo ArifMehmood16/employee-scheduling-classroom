@@ -108,7 +108,10 @@ function MindMapInner() {
           source: edge.source,
           target: edge.target,
           label: edge.label,
+          type: "smoothstep",
           animated: highlighted,
+          zIndex: highlighted ? 2 : 0,
+          pathOptions: { borderRadius: 14 },
           style: {
             stroke: highlighted ? "var(--series-1)" : "hsl(var(--border))",
             strokeWidth: highlighted ? 2 : 1,
@@ -116,9 +119,16 @@ function MindMapInner() {
           },
           labelStyle: {
             fontSize: 10,
-            fill: highlighted ? "var(--foreground)" : "var(--viz-ink-muted)",
+            fill: highlighted ? "hsl(var(--foreground))" : "var(--viz-ink-muted)",
           },
-          labelBgStyle: { fill: "hsl(var(--background))" },
+          labelShowBg: true,
+          labelBgPadding: [5, 3] as [number, number],
+          labelBgBorderRadius: 4,
+          labelBgStyle: {
+            fill: "hsl(var(--card))",
+            stroke: "hsl(var(--border))",
+            strokeWidth: 1,
+          },
         };
       }),
     [selectedId],
