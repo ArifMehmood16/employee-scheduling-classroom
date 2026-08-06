@@ -117,9 +117,12 @@ function MindMapInner() {
         const to = POSITIONS[edge.target];
         // Left→right whenever the target really is downstream; otherwise route
         // vertically so a backwards edge does not double back over its own row.
-        const forward = to.x > from.x + 40;
+        // `under` forces the vertical route even for a forward edge, so it drops
+        // below the row rather than cutting through the cards in between.
+        const forward = to.x > from.x + 40 && !edge.under;
         const sourceHandle = forward ? "sr" : to.y >= from.y ? "sb" : "st";
         const targetHandle = forward ? "tl" : to.y >= from.y ? "tt" : "tb";
+
         return {
           id: `e${index}`,
           source: edge.source,
