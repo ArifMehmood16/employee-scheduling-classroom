@@ -4,9 +4,15 @@ export const Route = createFileRoute("/playground")({
   head: () => ({
     meta: [
       { title: "Playground — Timefold Learn" },
-      { name: "description", content: "Experiment with Timefold models in an interactive playground." },
+      {
+        name: "description",
+        content: "Experiment with Timefold models in an interactive playground.",
+      },
       { property: "og:title", content: "Playground — Timefold Learn" },
-      { property: "og:description", content: "Experiment with Timefold models in an interactive playground." },
+      {
+        property: "og:description",
+        content: "Experiment with Timefold models in an interactive playground.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -18,7 +24,9 @@ function PlaygroundPage() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold tracking-tight">Playground</h1>
-      <p className="mt-2 text-muted-foreground">Edit a model, run the solver, and inspect the solution.</p>
+      <p className="mt-2 text-muted-foreground">
+        Edit a model, run the solver, and inspect the solution.
+      </p>
 
       <div className="mt-8 grid h-[calc(100vh-12rem)] gap-4 lg:grid-cols-2">
         <div className="rounded-lg border bg-card p-4">

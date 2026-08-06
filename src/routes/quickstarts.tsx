@@ -4,9 +4,15 @@ export const Route = createFileRoute("/quickstarts")({
   head: () => ({
     meta: [
       { title: "Quickstarts — Timefold Learn" },
-      { name: "description", content: "Browse Timefold quickstarts to learn optimization by example." },
+      {
+        name: "description",
+        content: "Browse Timefold quickstarts to learn optimization by example.",
+      },
       { property: "og:title", content: "Quickstarts — Timefold Learn" },
-      { property: "og:description", content: "Browse Timefold quickstarts to learn optimization by example." },
+      {
+        property: "og:description",
+        content: "Browse Timefold quickstarts to learn optimization by example.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -36,7 +42,9 @@ function QuickstartsPage() {
             className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm transition-colors hover:bg-accent/50"
           >
             <h2 className="font-medium">{title}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Select a quickstart to load its code and walkthrough.</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Select a quickstart to load its code and walkthrough.
+            </p>
           </div>
         ))}
       </div>

@@ -81,10 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Timefold Learn" },
-      { name: "description", content: "A learning app for Timefold optimization quickstarts and tutorials." },
+      {
+        name: "description",
+        content: "A learning app for Timefold optimization quickstarts and tutorials.",
+      },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Timefold Learn" },
-      { property: "og:description", content: "A learning app for Timefold optimization quickstarts and tutorials." },
+      {
+        property: "og:description",
+        content: "A learning app for Timefold optimization quickstarts and tutorials.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -136,4 +142,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

@@ -14,7 +14,13 @@ export function AppHeader() {
         <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Search">
           <Search className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="icon" className="h-8 w-8" asChild aria-label="GitHub repository">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8"
+          asChild
+          aria-label="GitHub repository"
+        >
           <a
             href="https://github.com/TimefoldAI/timefold-quickstarts"
             target="_blank"

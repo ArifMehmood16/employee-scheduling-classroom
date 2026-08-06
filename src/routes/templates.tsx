@@ -4,9 +4,15 @@ export const Route = createFileRoute("/templates")({
   head: () => ({
     meta: [
       { title: "Templates — Timefold Learn" },
-      { name: "description", content: "Starter templates for common Timefold optimization problems." },
+      {
+        name: "description",
+        content: "Starter templates for common Timefold optimization problems.",
+      },
       { property: "og:title", content: "Templates — Timefold Learn" },
-      { property: "og:description", content: "Starter templates for common Timefold optimization problems." },
+      {
+        property: "og:description",
+        content: "Starter templates for common Timefold optimization problems.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

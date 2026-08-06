@@ -4,9 +4,15 @@ export const Route = createFileRoute("/tutorials")({
   head: () => ({
     meta: [
       { title: "Tutorials — Timefold Learn" },
-      { name: "description", content: "Step-by-step tutorials for building optimization apps with Timefold." },
+      {
+        name: "description",
+        content: "Step-by-step tutorials for building optimization apps with Timefold.",
+      },
       { property: "og:title", content: "Tutorials — Timefold Learn" },
-      { property: "og:description", content: "Step-by-step tutorials for building optimization apps with Timefold." },
+      {
+        property: "og:description",
+        content: "Step-by-step tutorials for building optimization apps with Timefold.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
