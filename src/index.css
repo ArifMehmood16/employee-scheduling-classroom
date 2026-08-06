@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design tokens.
+ *
+ * Chart colours are not chosen by eye. The categorical slots, the diverging pair and
+ * the status set below were run through a colour-vision-deficiency validator against
+ * the actual surfaces they render on:
+ *
+ *   4 categorical slots, dark, adjacent pairs -> worst CVD dE 8.4, normal-vision 19.8
+ *   3 categorical slots, dark, ALL pairs      -> worst CVD dE 9.4, normal-vision 20.9
+ *   diverging blue/red, dark, all pairs       -> worst CVD dE 19.2, normal-vision 29.0
+ *
+ * All pass the lightness band, chroma floor, CVD separation, normal-vision floor and
+ * 3:1 contrast-vs-surface checks. Scatter-type charts are capped at 3 series because
+ * the 4th slot fails the all-pairs floor.
+ *
+ * Score levels use the reserved STATUS palette, never a categorical slot, and are
+ * always paired with a visible text label so hue never carries the meaning alone.
+ */
+
+@layer base {
+  :root {
+    --background: 60 5% 97%;
+    --foreground: 0 0% 4%;
+    --card: 60 20% 99%;
+    --card-foreground: 0 0% 4%;
+    --primary: 212 68% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 55 9% 93%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 55 9% 93%;
+    --muted-foreground: 45 4% 45%;
+    --accent: 55 12% 90%;
+    --accent-foreground: 0 0% 12%;
+    --destructive: 0 61% 53%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 51 15% 87%;
+    --input: 51 15% 87%;
+    --ring: 212 68% 50%;
+    --radius: 0.6rem;
+
+    --hard: 0 61% 53%;
+    --soft: 42 96% 54%;
+    --ok: 120 86% 34%;
+
+    /* Data-viz roles — plain hex, consumed by the chart components. */
+    --viz-surface: #fcfcfb;
+    --series-1: #2a78d6;
+    --series-2: #eb6834;
+    --series-3: #1baf7a;
+    --series-4: #eda100;
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical: #d03b3b;
+    --diverge-pos: #2a78d6;
+    --diverge-neg: #e34948;
+    --diverge-mid: #f0efec;
+    --viz-grid: #e1e0d9;
+    --viz-axis: #c3c2b7;
+    --viz-ink-muted: #898781;
+    --viz-ink-secondary: #52514e;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 100%;
+    --card: 60 2% 10%;
+    --card-foreground: 0 0% 100%;
+    --primary: 212 76% 56%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 60 4% 15%;
+    --secondary-foreground: 52 7% 84%;
+    --muted: 60 4% 14%;
+    --muted-foreground: 45 4% 58%;
+    --accent: 60 4% 18%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 61% 53%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 60 4% 17%;
+    --input: 60 3% 21%;
+    --ring: 212 76% 56%;
+
+    --hard: 0 61% 53%;
+    --soft: 42 96% 54%;
+    --ok: 120 86% 34%;
+
+    --viz-surface: #1a1a19;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-serious: #ec835a;
+    --status-critical: #d03b3b;
+    --diverge-pos: #3987e5;
+    --diverge-neg: #e66767;
+    --diverge-mid: #383835;
+    --viz-grid: #2c2c2a;
+    --viz-axis: #383835;
+    --viz-ink-muted: #898781;
+    --viz-ink-secondary: #c3c2b7;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-feature-settings: "cv11";
+  }
+
+  /* Axis ticks and table columns need vertical alignment; body text does not. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-lg border bg-card;
+  }
+
+  .kbd {
+    @apply rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground;
+  }
+
+  /* Inline mathematics. No KaTeX dependency — these are small enough to set by hand,
+     which keeps the Lovable bundle light and the markup readable. */
+  .math {
+    @apply font-mono text-[0.95em];
+    font-feature-settings: "ss01";
+  }
+
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.15;
+    margin: 0 0.15em;
+  }
+
+  .frac > span:first-child {
+    border-bottom: 1px solid currentColor;
+    padding: 0 0.25em;
+  }
+
+  .frac > span:last-child {
+    padding: 0 0.25em;
+  }
+}
+
+/* React Flow needs its variables mapped onto our tokens. */
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__edge-path {
+  stroke: hsl(var(--border));
+}
+
+.react-flow__handle {
+  opacity: 0;
+}
+
+/* The default control buttons are hard-coded white, which is unreadable on a dark
+   surface. Map them onto our tokens. */
+.react-flow__controls-button {
+  background: hsl(var(--card));
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+
+.react-flow__controls-button:hover {
+  background: hsl(var(--accent));
+}
+
+.react-flow__controls-button svg {
+  fill: currentColor;
+}
+
+.react-flow__controls {
+  box-shadow: none;
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+}
