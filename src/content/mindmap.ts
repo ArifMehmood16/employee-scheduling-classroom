@@ -37,6 +37,8 @@ export interface MapEdge {
   label?: string;
   /** Dashed = "reads / annotates", solid = "flows into". */
   dashed?: boolean;
+  /** Force the edge to drop below the row instead of cutting through it. */
+  under?: boolean;
 }
 
 export const MAP_NODES: MapNode[] = [
@@ -313,7 +315,7 @@ export const MAP_NODES: MapNode[] = [
     sublabel: "vanilla JS + Bootstrap",
     kind: "ui",
     x: 1400,
-    y: 820,
+    y: 1000,
     detail:
       "The quickstart's own front end: a Gantt board built with vis-timeline, polling the REST API every 2 seconds. Deliberately dependency-light. This classroom replaces it with React, and replaces the polling with an in-browser solver so there is no server at all.",
     external: {
@@ -347,7 +349,7 @@ export const MAP_EDGES: MapEdge[] = [
   { source: "constructionHeuristic", target: "localSearch", label: "hands over" },
   { source: "localSearch", target: "resource", label: "best solution events" },
   { source: "resource", target: "analyze", dashed: true },
-  { source: "resource", target: "webui", label: "polled by" },
+  { source: "resource", target: "webui", label: "polled by", under: true },
 ];
 
 export const KIND_META: Record<NodeKind, { label: string; color: string }> = {
