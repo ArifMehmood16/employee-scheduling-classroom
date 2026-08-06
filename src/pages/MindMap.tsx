@@ -108,12 +108,22 @@ function MindMapInner() {
     () =>
       MAP_EDGES.map((edge, index) => {
         const highlighted = edge.source === selectedId || edge.target === selectedId;
+        const from = POSITIONS[edge.source];
+        const to = POSITIONS[edge.target];
+        // Left→right whenever the target really is downstream; otherwise route
+        // vertically so a backwards edge does not double back over its own row.
+        const forward = to.x > from.x + 40;
+        const sourceHandle = forward ? "sr" : to.y >= from.y ? "sb" : "st";
+        const targetHandle = forward ? "tl" : to.y >= from.y ? "tt" : "tb";
         return {
           id: `e${index}`,
           source: edge.source,
           target: edge.target,
+          sourceHandle,
+          targetHandle,
           label: edge.label,
           type: "smoothstep",
+
           animated: highlighted,
           zIndex: highlighted ? 2 : 0,
           pathOptions: { borderRadius: 14 },
