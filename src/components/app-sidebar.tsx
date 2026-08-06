@@ -82,14 +82,14 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel>Learn</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{mainItems.map(NavItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel>Resources</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>{learnItems.map(NavItem)}</SidebarMenu>
