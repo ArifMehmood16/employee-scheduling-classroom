@@ -181,16 +181,17 @@ function MindMapInner() {
               },
             )}
           </div>
-          <div style={{ height: 660 }}>
+          <div className="h-[520px] sm:h-[640px] xl:h-[760px]">
             <ReactFlow
               nodes={nodes}
               edges={edges}
               nodeTypes={NODE_TYPES}
               onNodeClick={(_, node) => setSelectedId(node.id)}
               fitView
-              fitViewOptions={{ padding: 0.15 }}
-              minZoom={0.25}
+              fitViewOptions={{ padding: 0.08 }}
+              minZoom={0.2}
               maxZoom={1.6}
+              nodesDraggable={false}
               proOptions={{ hideAttribution: true }}
             >
               <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="hsl(var(--border))" />
