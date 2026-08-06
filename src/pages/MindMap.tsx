@@ -67,6 +67,11 @@ function LayerNode({ data, selected }: NodeProps) {
 
 const NODE_TYPES = { layer: LayerNode };
 
+const POSITIONS: Record<string, { x: number; y: number }> = Object.fromEntries(
+  MAP_NODES.map((node) => [node.id, { x: node.x, y: node.y }]),
+);
+
+
 export default function MindMap() {
   return (
     <ReactFlowProvider>
