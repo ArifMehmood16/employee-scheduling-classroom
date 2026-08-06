@@ -31,7 +31,7 @@ export default function App() {
             </Routes>
           </Layout>
         </BrowserRouter>
-        <Toaster theme="dark" position="bottom-right" />
+        <Toaster theme="light" position="bottom-right" />
       </ScheduleProvider>
     </TooltipProvider>
   );
