@@ -48,14 +48,19 @@ function LayerNode({ data, selected }: NodeProps) {
       )}
       style={{ borderLeftWidth: 3, borderLeftColor: meta.color }}
     >
-      <Handle type="target" position={Position.Left} />
+      <Handle type="target" position={Position.Left} id="tl" />
+      <Handle type="target" position={Position.Top} id="tt" />
+      <Handle type="target" position={Position.Bottom} id="tb" />
       <div className="truncate text-[13px] font-medium leading-tight">{node.label}</div>
       {node.sublabel ? (
         <div className="mt-0.5 truncate font-mono text-[10px] text-muted-foreground">
           {node.sublabel}
         </div>
       ) : null}
-      <Handle type="source" position={Position.Right} />
+      <Handle type="source" position={Position.Right} id="sr" />
+      <Handle type="source" position={Position.Top} id="st" />
+      <Handle type="source" position={Position.Bottom} id="sb" />
+
     </div>
   );
 }
