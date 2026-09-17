@@ -1,26 +1,56 @@
 # Employee Scheduling Classroom
 
-An interactive study tool for the [Timefold](https://timefold.ai) employee-scheduling
-quickstart. It contains a **working TypeScript port** of the quickstart's domain model,
-constraint engine and solver, so every number in the UI is computed rather than quoted —
-and every formula is derived from the Java/solver source rather than paraphrased from the
-docs.
+[![CI](https://github.com/ArifMehmood16/employee-scheduling-classroom/actions/workflows/ci.yml/badge.svg)](https://github.com/ArifMehmood16/employee-scheduling-classroom/actions/workflows/ci.yml)
 
-Built to be dropped straight into [Lovable](https://lovable.dev): Vite + React 18.3 +
-TypeScript + Tailwind 3.4 + shadcn/ui + react-router 6, which is exactly Lovable's
-`vite_react_shadcn_ts` stack.
+An interactive, browser-based study tool for the [Timefold](https://timefold.ai)
+employee-scheduling quickstart. Instead of presenting static documentation, it contains a
+**working TypeScript port** of the domain model, constraint engine and solver. Every score,
+bound and chart is computed locally, and the mathematical explanations are tied back to
+the source.
+
+![Employee Scheduling Classroom home screen](docs/employee-scheduling-classroom.jpg)
+
+## Highlights
+
+- Eight executable hard/soft constraints with per-match justifications.
+- A construction heuristic and local-search solver with four acceptors.
+- A provable feasibility bound using Kuhn's bipartite-matching algorithm.
+- An annotated Java source reader, codebase mind map and interactive constraint lab.
+- Deterministic demo data and 28 engine tests, all running without a backend or API key.
+- React 18.3, strict TypeScript, Vite 6, Tailwind 3.4 and shadcn/ui.
 
 ## Run it
 
 ```sh
-npm install
+npm ci
 npm run dev        # http://localhost:8080
 npm test           # 28 tests verifying the port
 npm run typecheck
+npm run lint
 npm run build
 ```
 
-No backend, no API keys, no server. The solver runs in the browser tab.
+Requires Node.js 20 or newer. No backend, API key or application server is needed; the
+solver runs in the browser tab.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  Content[Lessons, annotations, cards] --> Pages[React learning surfaces]
+  Demo[Seeded demo data] --> State[Schedule context]
+  Pages --> State
+  State --> Engine[Readable constraint engine]
+  State --> Fast[Incremental scoring]
+  State --> Solver[Construction + local search]
+  Engine --> Views[Scores, explanations, charts]
+  Fast --> Solver
+  Solver --> Views
+```
+
+The readable constraint implementation is the reference. The faster incremental path is
+tested against it over thousands of random states so optimisation cannot silently change
+the scoring rules.
 
 ## What's here
 
@@ -105,6 +135,17 @@ and always ship with a text label, so hue never carries meaning alone. Hard and 
 are plotted as **two charts, never one with two y-axes** — they are separate levels of a
 lexicographic order, and a shared axis would invent a relationship that does not exist.
 
+## Verification and known limits
+
+- `npm test` covers the domain, every constraint, feasibility bounds, incremental scoring
+  and solver behaviour with 28 deterministic tests.
+- `npm run typecheck`, `npm run lint` and `npm run build` are the local quality gates.
+- The solver is intentionally time-sliced on the main thread so moves remain inspectable.
+- The production bundle is currently about 1.3 MB before gzip; route-level code splitting
+  is the next meaningful performance improvement.
+- This is an independent educational port, not an official Timefold product or a drop-in
+  replacement for the Java solver.
+
 ## Source
 
 Ported from `use-cases/employee-scheduling` in
@@ -112,3 +153,12 @@ Ported from `use-cases/employee-scheduling` in
 Formula details cross-checked against
 [TimefoldAI/timefold-solver](https://github.com/TimefoldAI/timefold-solver)
 (`DefaultLoadBalance`, `LateAcceptanceAcceptor`, `AcceptorFactory`).
+
+The embedded upstream Java excerpts are provided under Apache-2.0. See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the included licence copy. Original
+project code is not offered under an open-source licence unless a file states otherwise.
+
+## Development environment
+
+The repository remains compatible with [Lovable](https://lovable.dev), but it is a normal
+Vite project: the locked npm commands above are sufficient to build and test it locally.
